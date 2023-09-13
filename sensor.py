@@ -11,8 +11,10 @@ class VisitSensor:
     def get_visit(self, date:date)->int:
         """Simulate the number of person detected by the sensor during the day"""
 
+        # Ensure reproducibility of measurements
         np.random.seed(seed=date.toordinal())
 
+        # Find out which day the date corresponds to: Monday = 0, Sunday = 6
         week_day = date.weekday()
 
         # If the date is a sunday the store is closed
@@ -31,4 +33,5 @@ class VisitSensor:
         else:
             visit = np.random.normal(self.avg_visit, self.std_visit)
 
+        # Return an integer
         return np.floor(visit)
