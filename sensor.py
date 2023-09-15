@@ -21,7 +21,7 @@ class VisitSensor:
         if self.malfunction and proba_malfunction < 10:
             visit = 0
         else:
-            visit = simulate_visit(date)
+            visit = self.simulate_visit(date)
         
         return visit
     
