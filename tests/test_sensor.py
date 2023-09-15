@@ -35,3 +35,13 @@ def test_saturday_open():
 def test_sunday_closed():
     visit_sensor = VisitSensor(1200, 300)
     assert -1 == visit_sensor.get_visit(date(2023, 9, 17))
+
+
+def test_with_malfunction():
+    visit_sensor = VisitSensor(1200, 300, True)
+    assert 0 == visit_sensor.get_visit(date(2023, 10, 22))
+
+
+def test_without_malfunction():
+    visit_sensor = VisitSensor(1200, 300)
+    assert 0 != visit_sensor.get_visit(date(2023, 10, 22))
