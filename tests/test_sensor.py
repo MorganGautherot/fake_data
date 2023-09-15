@@ -4,7 +4,7 @@ import os, sys
 path = os.getcwd()
 
 # Add the parent directory to sys.path
-sys.path.append(os.path.join(path, os.pardir))
+sys.path.append(os.path.abspath(os.path.join(path, os.pardir)))
 
 from sensor import VisitSensor
 from datetime import date
