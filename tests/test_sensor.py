@@ -1,12 +1,3 @@
-import os, sys
-
-# get current directory
-path = os.getcwd()
-print(path)
-print(os.pardir)
-# Add the parent directory to sys.path
-sys.path.append(os.path.abspath(os.path.join(path, os.pardir)))
-print(os.path.abspath(os.path.join(path, os.pardir)))
 from sensor import VisitSensor
 from datetime import date
 
