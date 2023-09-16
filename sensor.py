@@ -4,12 +4,17 @@ from datetime import date
 
 class VisitSensor:
     def __init__(
-        self, avg_visit: int, std_visit: int, malfunction: bool = False
+        self,
+        avg_visit: int,
+        std_visit: int,
+        perc_malfunction: float = 0,
+        perc_break: float = 0,
     ) -> None:
         """Intialize sensor"""
         self.avg_visit = avg_visit
         self.std_visit = std_visit
-        self.malfunction = malfunction
+        self.perc_malfunction = perc_malfunction
+        self.perc_break = perc_break
 
     def get_visit(self, date: date) -> int:
         """return the number of person detected by the sensor
@@ -18,16 +23,22 @@ class VisitSensor:
         np.random.seed(seed=date.toordinal())
         proba_malfunction = np.random.randint(1, 100)
 
-        if self.malfunction and proba_malfunction < 10:
+        # The sensor can break time to time
+        if proba_malfunction < self.perc_break:
             visit = 0
         else:
             visit = self.simulate_visit(date)
-        
+
+        # The sensor can have malfunction time to time
+        if proba_malfunction < self.perc_malfunction:
+            print('malfunction')
+            visit = np.floor(visit * 0.7)
+
         return visit
-    
-    def simulate_visit(self, date : date)->int:
+
+    def simulate_visit(self, date: date) -> int:
         """Simulate the number of person detected by the sensor
-        during the day """
+        during the day"""
 
         # Ensure reproducibility of measurements
         np.random.seed(seed=date.toordinal())
