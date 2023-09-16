@@ -19,7 +19,7 @@ class StoreSensor:
         # traffic distribution
         seed = np.sum(list(self.name.encode("ascii")))
         np.random.seed(seed=seed)
-        traffic_percentage = [48, 30, 5, 3, 1, 2, 10, 1]
+        traffic_percentage = [0.48, 0.30, 0.05, 0.03, 0.01, 0.02, 0.10, 0.01]
         np.random.shuffle(traffic_percentage)
 
         # Intialization of the store sensors
