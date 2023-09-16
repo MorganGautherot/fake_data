@@ -1,6 +1,6 @@
 import numpy as np
 from datetime import date
-from sensor import VisitSensor
+from fake_data_app.sensor import VisitSensor
 
 
 class StoreSensor:

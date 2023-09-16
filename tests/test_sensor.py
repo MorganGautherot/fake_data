@@ -1,4 +1,4 @@
-from sensor import VisitSensor
+from fake_data_app.sensor import VisitSensor
 from datetime import date
 
 

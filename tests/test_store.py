@@ -1,5 +1,5 @@
-from sensor import VisitSensor
-from store import StoreSensor
+from fake_data_app.sensor import VisitSensor
+from fake_data_app.store import StoreSensor
 from datetime import date
 
 def test_get_all_traffic():
