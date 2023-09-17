@@ -6,7 +6,7 @@ from datetime import date
 store_dict = create_app()
 
 app = FastAPI()
-@app.get("/visit/")
+@app.get("/")
 def visit(store_name: str, year: int, month: int, day: int, sensor_id: int | None = None):
 
     # If the store is the dictionnary
