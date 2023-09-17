@@ -1,4 +1,5 @@
 from app import visit
+import numpy as np
 
 # Normal
 # http://127.0.0.1:8000/visit/?store_name=Lille&year=2023&month=9&day=13&sensor_id=0
@@ -6,7 +7,7 @@ from app import visit
 
 def test_with_sensor():
     visit_number = visit("Lille", 2023, 9, 13, 1)
-    assert 247 == visit_number.body
+    assert 247 == float(visit_number.body.decode())
 
 
 # without sensor_id
@@ -15,7 +16,7 @@ def test_with_sensor():
 
 def test_without_sensor_id():
     visit_number = visit("Lille", 2023, 9, 13)
-    assert 2473 == visit_number.body
+    assert 2473 == float(visit_number.body.decode())
 
 
 # Normal
@@ -24,7 +25,7 @@ def test_without_sensor_id():
 
 def test_closed_store():
     visit_number = visit("Lille", 2023, 9, 10, 0)
-    assert "The store was closed try another date" == visit_number.body
+    assert "The store was closed try another date" == visit_number.body.decode()[1:-1]
 
 
 # Store name not found
@@ -33,7 +34,7 @@ def test_closed_store():
 
 def test_store_name():
     visit_number = visit("Arras", 2023, 9, 13, 0)
-    assert "Store Not found" == visit_number.body
+    assert "Store Not found" == visit_number.body.decode()[1:-1]
 
 
 # Sensor_id not found
@@ -42,7 +43,7 @@ def test_store_name():
 
 def test_sensor_id_negative():
     visit_number = visit("Lille", 2023, 9, 13, -1)
-    assert "Sensor_id Not Found. It must be between 0 and 7" == visit_number.body
+    assert "Sensor_id Not Found. It must be between 0 and 7" == visit_number.body.decode()[1:-1]
 
     # Sensor_id not found
 
@@ -52,7 +53,7 @@ def test_sensor_id_negative():
 
 def test_sensor_id_not_found():
     visit_number = visit("Lille", 2023, 9, 13, 8)
-    assert "Sensor_id Not Found. It must be between 0 and 7" == visit_number.body
+    assert "Sensor_id Not Found. It must be between 0 and 7" == visit_number.body.decode()[1:-1]
 
 
 # Year before 2020
@@ -61,7 +62,7 @@ def test_sensor_id_not_found():
 
 def test_year_before_2020():
     visit_number = visit("Lille", 2019, 9, 13, 0)
-    assert "No data before 2020" == visit_number.body
+    assert "No data before 2020" == visit_number.body.decode()[1:-1]
 
 
 # Choose a correct date
@@ -70,7 +71,7 @@ def test_year_before_2020():
 
 def test_incorrect_date():
     visit_number = visit("Lille", 2023, 2, 31, 0)
-    assert "Enter a valid date" == visit_number.body
+    assert "Enter a valid date" == visit_number.body.decode()[1:-1]
 
 
 # date in futur
@@ -79,4 +80,4 @@ def test_incorrect_date():
 
 def test_date_in_futur():
     visit_number = visit("Lille", 2025, 9, 13, 0)
-    assert "Choose a date in the past" == visit_number.body
+    assert "Choose a date in the past" == visit_number.body.decode()[1:-1]
